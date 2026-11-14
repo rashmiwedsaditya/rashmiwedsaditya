@@ -351,9 +351,71 @@
     .attire-final .prompt{ font-size:19px; }
     .attire-final p{ font-size:14.5px; }
   }
+
+  /* ============================================================
+     SCROLL REVEAL ANIMATIONS
+     ============================================================ */
+  .js .reveal{
+    opacity:0;
+    transform:translateY(34px);
+    transition:opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+    transition-delay:var(--d,0ms);
+    will-change:opacity, transform;
+  }
+  .js .reveal.from-left{ transform:translateX(-34px); }
+  .js .reveal.from-right{ transform:translateX(34px); }
+  .js .reveal.zoom{ transform:scale(.94); }
+  .js .reveal.fade{ transform:none; }
+  .js .reveal.in{ opacity:1; transform:none; }
+
+  /* divider line draws itself in */
+  .js .ornament.reveal{ transform:scale(.6) rotate(-20deg); }
+  .js .ornament.reveal.in{ transform:none; }
+
+  /* hero entrance on page load */
+  .js .hero .load{
+    opacity:0; transform:translateY(24px);
+    animation:heroIn 1s cubic-bezier(.22,.61,.36,1) forwards;
+    animation-delay:var(--d,0ms);
+  }
+  @keyframes heroIn{ to{ opacity:1; transform:none; } }
+
+  /* timeline dot pops when its card appears */
+  .js .event.reveal::before{ transform:scale(0); transition:transform .5s ease .4s; }
+  .js .event.reveal.in::before{ transform:scale(1); }
+
+  /* swatches pop in one by one */
+  .js .swatch{ opacity:0; transform:scale(.6); transition:opacity .5s ease, transform .5s cubic-bezier(.34,1.56,.64,1); }
+  .js .attire.in .swatch{ opacity:1; transform:none; }
+  .js .attire.in .swatch:nth-child(1){ transition-delay:.25s; }
+  .js .attire.in .swatch:nth-child(2){ transition-delay:.4s; }
+  .js .attire.in .swatch:nth-child(3){ transition-delay:.55s; }
+  .js .attire.in .swatch:nth-child(4){ transition-delay:.7s; }
+
+  /* glam words fade in one by one */
+  .js .glam-words span{ opacity:0; transform:translateY(10px); transition:opacity .5s ease, transform .5s ease; }
+  .js .attire.in .glam-words span{ opacity:1; transform:none; }
+
+  /* scroll progress bar */
+  #progress{
+    position:fixed; top:0; left:0; height:3px; width:0;
+    background:linear-gradient(90deg,var(--gold),var(--maroon));
+    z-index:50; transition:width .1s linear;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .js .reveal, .js .hero .load, .js .swatch, .js .glam-words span{
+      opacity:1 !important; transform:none !important; animation:none !important; transition:none !important;
+    }
+    html{ scroll-behavior:auto; }
+  }
+
+  .event .loc a{ color:var(--sage); text-decoration:underline; text-decoration-color:var(--gold-soft); text-underline-offset:3px; transition:color .2s; }
+  .event .loc a:hover{ color:var(--maroon); }
 </style>
 </head>
 <body>
+<div id="progress"></div>
 
 <div class="frame">
 
@@ -375,50 +437,20 @@
 
   <div class="ornament">❦</div>
 
-  <!-- ============ CHAPTER 2 : HALDI DAY ============ -->
+  <!-- ============ HALDI ============ -->
   <section class="chapter" id="haldi">
     <div class="chapter-head">
-      <span class="eyebrow">The Celebrations Continue</span>
+      <span class="eyebrow">The Celebrations Begin</span>
       <h2>Haldi</h2>
-      <div class="sub">3 December 2026 · At the Resort</div>
-      <p>A full day of sacred rituals and joyful colour at the resort. Every family
-        member is warmly invited to be part of these moments as we welcome the season of celebration together.</p>
+      <div class="sub">3 December 2026 · At Resort Riviera</div>
     </div>
 
     <div class="event">
       <div class="event-top">
-        <div><div class="event-date">Thursday, 3 December 2026</div><h3>Matkor</h3></div>
-        <div class="time">10:00 AM – 12:00 PM</div>
+        <div><div class="event-date">Thursday, 3 December 2026</div><h3>Haldi</h3></div>
+        <div class="time">12:00 PM – 6:00 PM</div>
       </div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">The women of the family walk together to a nearby field to gather sacred soil,
-        honouring Mother Earth and praying for a stable, fertile and happy married life. This earth
-        will later form the base of the wedding altar. A joyful procession, carried by folk songs
-        and the beat of the dholak.</p>
-    </div>
-
-    <div class="event">
-      <div class="event-top">
-        <div><div class="event-date">Thursday, 3 December 2026</div><h3>Virudham Pooja</h3></div>
-        <div class="time">10:00 AM – 12:00 PM</div>
-      </div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">A sacred pooja performed alongside the Matkor, invoking blessings for a
-        long, harmonious married life.</p>
-    </div>
-
-    <div class="event">
-      <div class="event-top">
-        <div><h3>Phoolo ki Haldi</h3></div>
-        <div class="time">12:00 PM – 1:30 PM</div>
-      </div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">A joyful, modern take on the traditional Haldi — the bride and groom are showered
-        with fresh flower petals. It symbolises purity, happiness and a vibrant start to their married
-        life together.</p>
+      <div class="loc">📍 <a href="https://maps.app.goo.gl/Q1t3TpKJrwWqwnX6A" target="_blank" rel="noopener">Resort Riviera</a></div>
 
       <!-- HALDI ATTIRE -->
       <div class="attire haldi">
@@ -432,72 +464,24 @@
         </div>
       </div>
     </div>
-
-
-    <div class="event">
-      <div class="event-top"><div><h3>Katha</h3></div><div class="time">2:30 PM – 4:30 PM</div></div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">A sacred puja that bridges the Matkor and the Haldi — offering thanks for the
-        earth gathered earlier that morning, and inviting divine blessings, grace and protection
-        before the purification rituals begin.</p>
-    </div>
-
-    <div class="event">
-      <div class="event-top"><div><h3>Shagun ki Haldi</h3></div><div class="time">4:30 PM – 6:00 PM</div></div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">Family and friends apply turmeric paste to the bride and groom in this warm,
-        golden ritual. It represents purification and protection from the evil eye, as loved ones
-        bless the couple with their touch ahead of the wedding.</p>
-
-      <!-- HALDI ATTIRE -->
-      <div class="attire haldi">
-        <span class="label">Haldi Attire</span>
-        <div class="prompt">Pastels, please — think soft, dreamy &amp; effortlessly pretty. 🌸</div>
-        <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#E1EFE8"></div></div>
-          <div class="swatch"><div class="chip" style="background:#DDEEF1"></div></div>
-          <div class="swatch"><div class="chip" style="background:#FAEBF1"></div></div>
-          <div class="swatch"><div class="chip" style="background:#E8DFFA"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="interlude">💄 6:00 PM – 7:30 PM · Get Ready — time to freshen up for the evening ahead</div>
   </section>
 
   <div class="ornament">❦</div>
 
-  <!-- ============ CHAPTER 2 : RING CEREMONY + SANGEET ============ -->
+  <!-- ============ SANGEET ============ -->
   <section class="chapter" id="sangeet">
     <div class="chapter-head">
       <span class="eyebrow">The Party Begins</span>
-      <h2>Ring Ceremony &amp; Sangeet</h2>
+      <h2>Sangeet</h2>
       <div class="sub">3rd December, Evening</div>
-      <p>As the pastel afternoon fades, the resort turns up the lights — an evening of promises,
-        cake, music and dance to bring both families together.</p>
     </div>
 
     <div class="event">
       <div class="event-top">
-        <div><h3>Ring Ceremony &amp; Cake Cutting</h3></div>
-        <div class="time">7:30 PM – 8:30 PM</div>
+        <div><div class="event-date">Thursday, 3 December 2026</div><h3>Sangeet</h3></div>
+        <div class="time">8:30 PM – 10:00 PM</div>
       </div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">The exchange of rings is a promise of eternal love and commitment. Cutting the
-        cake together is the couple's first shared moment — a sweet symbol of the prosperity and
-        life they will build together.</p>
-    </div>
-
-    <div class="event">
-      <div class="event-top"><div><h3>Sangeet</h3></div><div class="time">8:30 PM – 10:00 PM</div></div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">Meaning "sung together," the Sangeet is a lively night of music and dance that
-        brings both families closer. It breaks the ice between the two sides and offers a joyful,
-        informal evening before the more solemn rituals begin.</p>
+      <div class="loc">📍 <a href="https://maps.app.goo.gl/Q1t3TpKJrwWqwnX6A" target="_blank" rel="noopener">Resort Riviera</a></div>
 
       <!-- SANGEET ATTIRE -->
       <div class="attire glam">
@@ -505,70 +489,43 @@
         <div class="prompt">Add bling to the party with your presence ✨</div>
       </div>
     </div>
-
-    <p class="interlude" style="font-size:17px; margin-top:36px;">
-      The journey of our wedding begins here — with colour, music and the blessings of everyone we love.
-    </p>
   </section>
 
   <div class="ornament">❦</div>
 
-  <!-- ============ CHAPTER 3 : THE BIG DAY ============ -->
+  <!-- ============ THE WEDDING DAY ============ -->
   <section class="chapter" id="bigday">
     <div class="hero-day">
       <span class="eyebrow">The Big Day</span>
       <h2>The Wedding Day</h2>
       <div class="sub">4 December 2026 · Morning to Night</div>
-      <p style="max-width:600px; margin:20px auto 0; color:#6b5c4f;">Where two traditions become one —
-        a quiet South Indian morning, a joyous North Indian arrival, and a grand evening that brings
-        every thread of our families together.</p>
     </div>
 
-    <div class="day-label">Morning — South Style Wedding</div>
+    <div class="day-label">Morning — Traditional Iyer Wedding</div>
     <div class="event">
       <div class="event-top">
-        <div><div class="event-date">Friday, 4 December 2026</div><h3>South Style Wedding</h3></div>
+        <div><div class="event-date">Friday, 4 December 2026</div><h3>Traditional Iyer Wedding</h3></div>
         <div class="time">8:00 AM – 12:00 PM</div>
       </div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">A beautiful South Indian-style ceremony uniting the couple through sacred,
-        time-honoured rites, performed with the blessings of family elders and the priest. It is a
-        quieter, deeply spiritual morning at the heart of the wedding.</p>
+      <div class="loc">📍 <a href="https://maps.app.goo.gl/Q1t3TpKJrwWqwnX6A" target="_blank" rel="noopener">Resort Riviera</a></div>
     </div>
 
-    <div class="cultural-band">
-      <div class="south">
-        <h4>South Indian Morning</h4>
-        <div class="motif-row">
-          <span>Jasmine</span><span>Temple architecture</span><span>Banana leaves</span>
-          <span>Ivory &amp; muted gold</span><span>Traditional motifs</span>
-        </div>
-        <p>Serene, sacred, and steeped in tradition — an elegant, quiet beginning to the day.</p>
-      </div>
-      <div class="north">
-        <h4>North Indian Evening</h4>
-        <div class="motif-row">
-          <span>Dhol &amp; procession</span><span>Rich colour</span><span>Gold detailing</span>
-          <span>Elegant florals</span><span>Celebration motifs</span>
-        </div>
-        <p>As the sun sets, the mood turns vibrant and grand — a joyous North Indian celebration.</p>
-      </div>
-    </div>
-
-    <div class="interlude">🌿 2:30 PM – 7:00 PM · Rest &amp; Prepare — time to relax and get ready for the evening's celebrations</div>
-
-    <div class="day-label">Evening Begins — Baraat</div>
+    <div class="day-label">Evening — Reception &amp; Traditional North Indian Wedding</div>
     <div class="event">
-      <div class="event-top"><div><h3>Baraat &amp; Reception</h3></div><div class="time">7:00 PM – 7:30 PM</div></div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">The groom's joyous procession arrives at the venue, accompanied by dancing
-        family and friends. It marks his journey to claim his bride, and publicly announces the
-        joining of the two families as the reception begins.</p>
+      <div class="event-top">
+        <div><div class="event-date">Friday, 4 December 2026</div><h3>Reception</h3></div>
+        <div class="time">7:00 PM onwards</div>
+      </div>
+      <div class="loc">📍 <a href="https://maps.app.goo.gl/Q1t3TpKJrwWqwnX6A" target="_blank" rel="noopener">Resort Riviera</a></div>
     </div>
 
-    <p class="interlude">By nightfall, the resort will be alive with music, colour and the arrival of the groom.</p>
+    <div class="event">
+      <div class="event-top">
+        <div><div class="event-date">Friday, 4 December 2026</div><h3>Traditional North Indian Wedding</h3></div>
+        <div class="time">11:30 PM onwards</div>
+      </div>
+      <div class="loc">📍 <a href="https://maps.app.goo.gl/Q1t3TpKJrwWqwnX6A" target="_blank" rel="noopener">Resort Riviera</a></div>
+    </div>
 
     <!-- WEDDING DAY ATTIRE -->
     <div class="attire-final">
@@ -583,72 +540,13 @@
 
   <div class="ornament">❦</div>
 
-  <!-- ============ CHAPTER 4 : THE SACRED UNION ============ -->
-  <section class="chapter" id="sacred-union">
-    <div class="chapter-head">
-      <span class="eyebrow">The Sacred Rites</span>
-      <h2>The Sacred Union</h2>
-      <div class="sub">4 December Evening &amp; 5 December Morning</div>
-      <p>The heart of our wedding — the rituals that formally unite the couple — begins as the
-        groom arrives, and closes with a tender farewell the following morning.</p>
-    </div>
-
-    <div class="day-label">4th December — Evening</div>
-
-    <div class="event">
-      <div class="event-top"><div><h3>Dwaar Pooja</h3></div><div class="time">7:30 PM – 8:00 PM</div></div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">As the groom's procession reaches the venue, the bride's family welcomes him
-        at the doorstep with aarti and a protective tilak. This sacred welcome formally marks the
-        family's acceptance of the groom, warding off evil eyes and inviting blessings for the
-        union ahead.</p>
-    </div>
-
-    <div class="event">
-      <div class="event-top"><div><h3>Jaimaal</h3></div><div class="time">8:00 PM – 8:30 PM</div></div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">The bride and groom exchange fresh flower garlands, marking their first meeting
-        as a couple before the gathered families. It is a public, joyful moment of mutual acceptance
-        — the true beginning of the wedding ceremony.</p>
-    </div>
-
-    <div class="event">
-      <div class="event-top"><div><h3>Wedding Rituals Continue</h3></div><div class="time">11:30 PM – 2:00 AM</div></div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">As one day gives way to the next, the couple completes the remaining sacred
-        rites of the North-style wedding. This midnight timing is considered deeply auspicious —
-        a symbolic fresh start as they leave the past behind and step into their shared future
-        together.</p>
-    </div>
-
-    <div class="day-label">5th December — Farewell</div>
-
-    <div class="event">
-      <div class="event-top">
-        <div><div class="event-date">Saturday, 5 December 2026</div><h3>Vidaai</h3></div>
-        <div class="time">7:00 AM – 7:30 AM</div>
-      </div>
-      <div class="loc">📍 Resort</div>
-      <span class="label">Why It Matters</span>
-      <p class="why">The most emotional moment of the wedding, as the bride bids farewell to her
-        parents and childhood home to begin her new life. It marks her tender transition from
-        daughter to wife — a bittersweet moment of deep gratitude, tears, and heartfelt blessings
-        from her family.</p>
-    </div>
-  </section>
-
-  <div class="ornament">❦</div>
-
   <!-- ============ LOCATION ============ -->
   <section class="chapter" id="location">
     <div class="attire-final">
       <span class="label">Travel Information</span>
       <div class="prompt">📍 Event Location</div>
       <p style="max-width:480px; margin:10px auto 0; color:#6b5c4f; font-size:16px;">
-        All wedding events will take place in Bhilai, Chhattisgarh.
+        All wedding events will take place at <a href="https://maps.app.goo.gl/Q1t3TpKJrwWqwnX6A" target="_blank" rel="noopener" style="color:var(--maroon);">Resort Riviera</a>, Bhilai, Chhattisgarh.
       </p>
       <div class="prompt" style="margin-top:26px;">✈️ Nearest Airport</div>
       <p style="max-width:480px; margin:10px auto 0; color:#6b5c4f; font-size:16px;">
@@ -672,5 +570,66 @@
   </footer>
 
 </div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  root.classList.add('js');
+
+  // Hero: staggered entrance on load
+  var heroKids=document.querySelectorAll('.hero > img, .hero > svg.motif, .hero > .eyebrow, .hero > h1, .hero > .dates, .hero > .lede');
+  heroKids.forEach(function(el,i){ el.classList.add('load'); el.style.setProperty('--d',(150+i*160)+'ms'); });
+
+  // Elements to reveal as the user scrolls
+  var rules=[
+    ['.ornament',null],
+    ['.chapter-head .eyebrow',null],
+    ['.chapter-head h2',null],
+    ['.chapter-head .sub',null],
+    ['.chapter-head p',null],
+    ['.hero-day',null],
+    ['.day-label','from-left'],
+    ['.event',null],
+    ['.interlude','fade'],
+    ['.attire','zoom'],
+    ['.attire-final','zoom'],
+    ['footer p',null],
+    ['footer .page','fade']
+  ];
+  var targets=[];
+  rules.forEach(function(r){
+    document.querySelectorAll(r[0]).forEach(function(el){
+      el.classList.add('reveal');
+      if(r[1]) el.classList.add(r[1]);
+      targets.push(el);
+    });
+  });
+
+  // Small stagger for siblings in the same chapter header
+  document.querySelectorAll('.chapter-head').forEach(function(h){
+    h.querySelectorAll('.reveal').forEach(function(el,i){ el.style.setProperty('--d',(i*120)+'ms'); });
+  });
+
+  if(!('IntersectionObserver' in window)){
+    targets.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    targets.forEach(function(el){ io.observe(el); });
+  }
+
+  // Scroll progress bar
+  var bar=document.getElementById('progress');
+  function onScroll(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
 </body>
 </html>
